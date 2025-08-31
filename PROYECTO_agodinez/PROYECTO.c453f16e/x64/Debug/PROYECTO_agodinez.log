@@ -1,2 +1,6 @@
-﻿  Main.cpp
+﻿  Board.cpp
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\PROYECTO_agodinez\Board.cpp(68,36): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\PROYECTO_agodinez\Board.cpp(68,34): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+  Gem.cpp
+  Generando código...
   PROYECTO_agodinez.vcxproj -> C:\Users\Andrew\Documents\GitHub\Match-3-SFML\PROYECTO_agodinez\x64\Debug\PROYECTO_agodinez.exe

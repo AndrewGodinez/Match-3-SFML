@@ -1,23 +1,34 @@
+#include "Game.h"
 #include <SFML/Graphics.hpp>
+#include "Board.h"
 
-using namespace sf;
+void testingArea() {
+	RenderWindow window(VideoMode(800, 600), "Testing Area", Style::Close | Style::Default);
+	Board* board = new Board();
+
+	while (window.isOpen()) {
+		Event event;
+
+		while (window.pollEvent(event)) {
+			if (event.type == Event::Closed) {
+				window.close();
+			}
+		}
+		window.clear();
+		board->draw(window);
+		window.display();
+	}
+
+	
+}
 
 int main() {
-    RenderWindow window(VideoMode(200, 200), "SFML works!");
-    CircleShape shape(100.f);
-    shape.setFillColor(Color::Green);
 
-    while (window.isOpen()) {
-        Event event;
-        while (window.pollEvent(event)) {
-            if (event.type == Event::Closed)
-                window.close();
-        }
+	testingArea();
+	
 
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
+	//Game game;
+	//game.run();
 
-    return 0;
 }
+
