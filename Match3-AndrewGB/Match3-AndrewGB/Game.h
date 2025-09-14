@@ -1,5 +1,6 @@
 #pragma once
 #include "Board.h"
+#include "Button.h"
 
 enum GameState {
 	MAIN_MENU,
@@ -11,6 +12,8 @@ class Game {
 private:
 	int highScore;
 	int lastScore;
+	Button *playButton;
+	Button *backButton;
 	GameState view;
 	Board* gameBoard;
 	sf::Music* mainSong;
@@ -20,9 +23,10 @@ public:
 	Game();
 	~Game();
 	void init();
+	void callNewBoard();
 	void viewsHandler();
-	void mainMenuView(sf::Event &event);
-	void mainGameView(sf::Event& event);
-	void gameOverView(sf::Event& event);
+	void mainMenuView();
+	void mainGameView();
+	void gameOverView();
 };
 

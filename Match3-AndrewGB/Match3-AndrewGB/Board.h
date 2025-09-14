@@ -30,7 +30,6 @@ public:
 	bool checkMatchAtPosition(int x, int y);
 	bool isInsideBoard(const sf::Vector2i& mousePos, int& outRow, int& outCol);
 	void handleClick(const sf::Vector2i& mousePos);
-	void update();
 	void draw(sf::RenderWindow& window);
 	int getScore();
 	int getMovesLeft();

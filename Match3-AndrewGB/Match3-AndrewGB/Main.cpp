@@ -1,7 +1,5 @@
 #include "Game.h"
-#include <string>
-using namespace sf;
-
+#include "Button.h"
 
 int main() {
     Game app;
