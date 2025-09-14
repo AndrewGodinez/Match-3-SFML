@@ -13,6 +13,21 @@ C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Bo
 C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         ]
   (compilando archivo de origen "Game.cpp")
   
+  Main.cpp
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         ]
+  (compilando archivo de origen "Main.cpp")
+  
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         ]
+  (compilando archivo de origen "Main.cpp")
+  
   Generando código
   1 of 174 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
