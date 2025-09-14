@@ -27,35 +27,43 @@ void Gem::updatePosition(int xPos, int yPos, sf::Vector2f gridOffset) {
 }
 
 void Gem::loadTexture() {
-	if (type = GREEN) {
+	if (type == GREEN) {
 		if (checkTextures(texturePaths[static_cast<int>(type)])) {
 			texture.loadFromFile(texturePaths[static_cast<int>(type)]);
 		} else {
-			texture.loadFromImage(createReplacemetTexture());
+			texture.loadFromImage(createReplacementTexture());
 		}
 	}
-	if (type = ORANGE) {
+	if (type == ORANGE) {
 		if (checkTextures(texturePaths[static_cast<int>(type)])) {
 			texture.loadFromFile(texturePaths[static_cast<int>(type)]);
 		}
 		else {
-			texture.loadFromImage(createReplacemetTexture());
+			texture.loadFromImage(createReplacementTexture());
 		}
 	}
-	if (type = BLUE) {
+	if (type == RED) {
 		if (checkTextures(texturePaths[static_cast<int>(type)])) {
 			texture.loadFromFile(texturePaths[static_cast<int>(type)]);
 		}
 		else {
-			texture.loadFromImage(createReplacemetTexture());
+			texture.loadFromImage(createReplacementTexture());
 		}
 	}
-	if (type = YELLOW) {
+	if (type == BLUE) {
 		if (checkTextures(texturePaths[static_cast<int>(type)])) {
 			texture.loadFromFile(texturePaths[static_cast<int>(type)]);
 		}
 		else {
-			texture.loadFromImage(createReplacemetTexture());
+			texture.loadFromImage(createReplacementTexture());
+		}
+	}
+	if (type == YELLOW) {
+		if (checkTextures(texturePaths[static_cast<int>(type)])) {
+			texture.loadFromFile(texturePaths[static_cast<int>(type)]);
+		}
+		else {
+			texture.loadFromImage(createReplacementTexture());
 		}
 	}
 	sprite.setTexture(texture);
@@ -74,8 +82,12 @@ bool Gem::checkTextures(std::string texture) {
 	return true;
 }
 
-sf::Image Gem::createReplacemetTexture() {
+sf::Image Gem::createReplacementTexture() {
 	sf::Image img;
 	img.create(WIDTH, HEIGHT, sf::Color::Red); 
 	return img;
+}
+
+GemType Gem::getType(){
+	return type;
 }

@@ -1,2 +1,16 @@
-﻿  Main.cpp
+﻿  Game.cpp
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         ]
+  (compilando archivo de origen "Game.cpp")
+  
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         ]
+  (compilando archivo de origen "Game.cpp")
+  
   Match3-AndrewGB.vcxproj -> C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\x64\Debug\Match3-AndrewGB.exe

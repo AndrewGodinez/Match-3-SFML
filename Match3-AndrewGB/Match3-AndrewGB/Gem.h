@@ -36,6 +36,7 @@ public:
 	void loadTexture();
 	void draw(sf::RenderWindow &window);
 	bool checkTextures(std::string texture);
-	sf::Image createReplacemetTexture(); 
+	sf::Image createReplacementTexture();
+	GemType getType();
 };
 
