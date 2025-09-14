@@ -47,9 +47,13 @@ void Game::mainMenuView() {
 	while (view == MAIN_MENU && window->isOpen()) {
 		sf::Event event;
 		sf::Text HightScoreText;
+		sf::Text madeBy;
 		HightScoreText.setFont(*font);
 		HightScoreText.setPosition(16, 0);
 		HightScoreText.setString("High Score:" + std::to_string(highScore));
+		madeBy.setFont(*font);
+		madeBy.setPosition(16, 560);
+		madeBy.setString("Match-3 Fantasy: Made by Andrew Godinez 2025");
 		playButton->setText("Start");
 		playButton->setPosition(400, 192);
 		backButton->setText("Quit");
@@ -73,6 +77,7 @@ void Game::mainMenuView() {
 		}
 			window->clear(sf::Color(29, 41, 81));
 			window->draw(HightScoreText);
+			window->draw(madeBy);
 			playButton->draw(*window);
 			backButton->draw(*window);
 			window->display();
