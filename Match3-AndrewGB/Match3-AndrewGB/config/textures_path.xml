@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<textures>
+    <gems>
+        <COMMON>
+            <GREEN>assets/gem1.png</GREEN>
+            <ORANGE>assets/gem2.png</ORANGE>
+            <RED>assets/gem3.png</RED>
+            <BLUE>assets/gem4.png</BLUE>
+            <YELLOW>assets/gem5.png</YELLOW>
+        </COMMON>
+        <BOMB></BOMB>
+        <OBSTACLE></OBSTACLE>
+    </gems>
+</textures>

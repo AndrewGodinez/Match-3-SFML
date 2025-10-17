@@ -1,27 +1,9 @@
 #pragma once
-#include <iostream>
+#include "ConfigManager.h"
 #include <SFML/Graphics.hpp>
 
 #define WIDTH 64
 #define HEIGHT 64
-
-enum GemType {
-	COMMON,
-	BOMB,
-	OBSTACLE,
-
-	COUNT
-};
-
-enum GemColor {
-	GREEN,
-	ORANGE,
-	RED,
-	BLUE,
-	YELLOW,
-
-	COUNT
-};
 
 class Gem {
 protected:
@@ -32,6 +14,7 @@ protected:
 public:
 	Gem();
 	~Gem();
+	void update(float deltaTime);
 	void spritePosition(sf::Vector2f gridOffset);
 	void updatePosition(int xPos, int yPos, sf::Vector2f gridOffset);
 	virtual void setTexture() = 0;
