@@ -29,4 +29,12 @@
 
 # debug information files
 *.dwo
+*.log
+*.tlog
+*.idb
 Match3-AndrewGB/.vs/
+Match3-AndrewGB/Match3-AndrewGB/x64/
+*.log
+*.tlog
+Match3-AndrewGB/Match3-AndrewGB/x64/Debug/Match3-AndrewGB.tlog/CL.command.1.tlog
+Match3-AndrewGB/Match3-AndrewGB/x64/Debug/Match3-AndrewGB.log

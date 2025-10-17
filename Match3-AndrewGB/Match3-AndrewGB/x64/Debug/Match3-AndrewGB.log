@@ -1,4 +1,68 @@
-﻿  Game.cpp
+﻿  Board.cpp
+  Button.cpp
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(23,2): error C2365: 'COUNT': nueva definición; la definición anterior era 'enumerador'
+  (compilando archivo de origen "Board.cpp")
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(13,2):
+      vea la declaración de 'COUNT'
+  
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         ]
+  (compilando archivo de origen "Board.cpp")
+  
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         ]
+  (compilando archivo de origen "Board.cpp")
+  
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.cpp(52,21): error C2259: "Gem": no se puede crear una instancia de una clase abstract
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(26,7):
+      vea la declaración de 'Gem'
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.cpp(52,21):
+      debido a los siguientes miembros:
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.cpp(52,21):
+      'void Gem::setTexture(void)': es abstracto
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(37,15):
+      vea la declaración de 'Gem::setTexture'
+  
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.cpp(52,24): error C2259: "Gem": no se puede crear una instancia de una clase abstract
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(26,7):
+      vea la declaración de 'Gem'
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.cpp(52,24):
+      debido a los siguientes miembros:
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.cpp(52,24):
+      'void Gem::setTexture(void)': es abstracto
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(37,15):
+      vea la declaración de 'Gem::setTexture'
+  
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.cpp(52,24): error C2661: 'Gem::Gem': ninguna función sobrecargada acepta 4 argumentos
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.cpp(52,24):
+      al hacer coincidir la lista de argumentos '(int, int, const sf::Vector2f, GemType)'
+  
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.cpp(120,22): error C2259: "Gem": no se puede crear una instancia de una clase abstract
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(26,7):
+      vea la declaración de 'Gem'
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.cpp(120,22):
+      debido a los siguientes miembros:
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.cpp(120,22):
+      'void Gem::setTexture(void)': es abstracto
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(37,15):
+      vea la declaración de 'Gem::setTexture'
+  
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.cpp(120,25): error C2661: 'Gem::Gem': ninguna función sobrecargada acepta 4 argumentos
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.cpp(120,25):
+      al hacer coincidir la lista de argumentos '(int, int, const sf::Vector2f, GemType)'
+  
+  Game.cpp
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(23,2): error C2365: 'COUNT': nueva definición; la definición anterior era 'enumerador'
+  (compilando archivo de origen "Game.cpp")
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(13,2):
+      vea la declaración de 'COUNT'
+  
 C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
 C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         with
 C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         [
@@ -13,4 +77,40 @@ C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Bo
 C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         ]
   (compilando archivo de origen "Game.cpp")
   
-  Match3-AndrewGB.vcxproj -> C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\x64\Debug\Match3-AndrewGB.exe
+  Gem.cpp
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(23,2): error C2365: 'COUNT': nueva definición; la definición anterior era 'enumerador'
+  (compilando archivo de origen "Gem.cpp")
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(13,2):
+      vea la declaración de 'COUNT'
+  
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(16,35): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(16,35): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(16,35): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(16,35): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(16,35): warning C4244:         ]
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(16,30): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(16,30): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(16,30): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(16,30): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(16,30): warning C4244:         ]
+  Main.cpp
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(23,2): error C2365: 'COUNT': nueva definición; la definición anterior era 'enumerador'
+  (compilando archivo de origen "Main.cpp")
+      C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.h(13,2):
+      vea la declaración de 'COUNT'
+  
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         ]
+  (compilando archivo de origen "Main.cpp")
+  
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         ]
+  (compilando archivo de origen "Main.cpp")
+  
+  Generando código...

@@ -18,6 +18,5 @@ public:
 	void setTextureIndicator(sf::Vector2i& mousePos);
 	void setPosition(int xPos, int yPos);
 	void setText(std::string text);
-
 };
 

@@ -1,15 +1,6 @@
 #include "Gem.h"
 
 Gem::Gem() {
-	gridPosition = sf::Vector2f(0, 0);
-	type = GREEN;
-}
-
-Gem::Gem(int xPos, int yPos, sf::Vector2f gridOffset, GemType type) {
-	gridPosition = sf::Vector2f(xPos, yPos);
-	this->type = type;
-	loadTexture();
-	spritePosition(gridOffset);
 }
 
 Gem::~Gem() {
@@ -26,66 +17,23 @@ void Gem::updatePosition(int xPos, int yPos, sf::Vector2f gridOffset) {
 	spritePosition(gridOffset);
 }
 
-void Gem::loadTexture() {
-	if (type == GREEN) {
-		if (checkTextures(texturePaths[static_cast<int>(type)])) {
-			texture.loadFromFile(texturePaths[static_cast<int>(type)]);
-		} else {
-			texture.loadFromImage(createReplacementTexture());
+void Gem::loadTexture(std::string &texture) {
+	try {
+		if (!this->texture.loadFromFile(texture)) {
+			throw 1;
 		}
 	}
-	if (type == ORANGE) {
-		if (checkTextures(texturePaths[static_cast<int>(type)])) {
-			texture.loadFromFile(texturePaths[static_cast<int>(type)]);
-		}
-		else {
-			texture.loadFromImage(createReplacementTexture());
+	catch (int error) {
+		if (error == -1) {
+			std::cerr << "Fallo al cargar textura en gema\n";
+			exit(error);
 		}
 	}
-	if (type == RED) {
-		if (checkTextures(texturePaths[static_cast<int>(type)])) {
-			texture.loadFromFile(texturePaths[static_cast<int>(type)]);
-		}
-		else {
-			texture.loadFromImage(createReplacementTexture());
-		}
-	}
-	if (type == BLUE) {
-		if (checkTextures(texturePaths[static_cast<int>(type)])) {
-			texture.loadFromFile(texturePaths[static_cast<int>(type)]);
-		}
-		else {
-			texture.loadFromImage(createReplacementTexture());
-		}
-	}
-	if (type == YELLOW) {
-		if (checkTextures(texturePaths[static_cast<int>(type)])) {
-			texture.loadFromFile(texturePaths[static_cast<int>(type)]);
-		}
-		else {
-			texture.loadFromImage(createReplacementTexture());
-		}
-	}
-	sprite.setTexture(texture);
+	sprite.setTexture(this->texture);
 }
 
 void Gem::draw(sf::RenderWindow& window) {
 	window.draw(sprite);
-}
-
-bool Gem::checkTextures(std::string texture) {
-	sf::Texture temp;
-	if (!temp.loadFromFile(texture)) {
-		std::cerr << "Error: Failed loading texture: " << texture << "\n";
-		return false;
-	}
-	return true;
-}
-
-sf::Image Gem::createReplacementTexture() {
-	sf::Image img;
-	img.create(WIDTH, HEIGHT, sf::Color::Red); 
-	return img;
 }
 
 GemType Gem::getType(){
