@@ -21,4 +21,8 @@ public:
 	std::string getTag(const std::string& tag);
 };
 
-
+class CsvFile : public File {
+public:
+	CsvFile();
+	std::string getLine(int id);
+};

@@ -15,6 +15,7 @@ Board::Board() {
 	for (int i = 0; i < GRID_HEIGHT; i++) {
 		for (int j = 0; j < GRID_WIDTH; j++) toDeleteOnGrid[i][j] = false;
 	}
+	loadLevel(1);
 	inicializateBoard();
 }
 
@@ -25,33 +26,92 @@ Board::~Board() {
 		}
 	}
 }
+void Board::loadLevel(int id) {
+	levelFile.setFileName("levels/level_" + std::to_string(id) + ".csv");
+	levelFile.openIn();
+}
+void Board::update(float deltaTime) {
+	bool anyMoving = false;
+	for (int i = 0; i < GRID_HEIGHT; i++) {
+		for (int j = 0; j < GRID_WIDTH; j++) {
+			if (grid[i][j]) {
+				grid[i][j]->update(deltaTime);
+				if (grid[i][j]->isMoving()) anyMoving = true;
+			}
+		}
+	}
+	animating = anyMoving;
+
+	if (!animating && pendingResolve) {
+		bool wasFound = true;
+		while (wasFound) {
+			bool found = false;
+			checkMatches();
+			for (int i = 0; i < GRID_HEIGHT && !found; i++) {
+				for (int j = 0; j < GRID_WIDTH && !found; j++) {
+					if (toDeleteOnGrid[i][j]) found = true;
+				}
+			}
+			if (!found) {
+				wasFound = false;
+				break;
+			}
+			destroyMatches();
+			applyGravity();
+			refillBoard();
+			anyMoving = false;
+			for (int i = 0; i < GRID_HEIGHT; i++) {
+				for (int j = 0; j < GRID_WIDTH; j++) {
+					if (grid[i][j] && grid[i][j]->isMoving()) anyMoving = true;
+				}
+			}
+			animating = anyMoving;
+			if (animating) {
+				break;
+			}
+		}
+		if (!animating) pendingResolve = false;
+	}
+}
 
 void Board::inicializateBoard() {
 	for (int i = 0; i < GRID_HEIGHT; i++) {
+		std::string row = levelFile.getLine(i);
 		for (int j = 0; j < GRID_WIDTH; j++) {
-			int gemVariety = static_cast<int>(GemColor::COUNT);
-			GemColor type = static_cast<GemColor>(rand() % gemVariety);
-			bool valid = false;
-			while (!valid) {
-				valid = true;
-				if (j >= 2) {
-					if (grid[i][j - 1]->getType() == type &&
-						grid[i][j - 2]->getType() == type) {
-						valid = false;
-						type = static_cast<GemColor>(rand() % gemVariety);
-					}
-				}
-				if (i >= 2) {
-					if (grid[i - 1][j]->getType() == type &&
-						grid[i - 2][j]->getType() == type) {
-						valid = false;
-						type = static_cast<GemColor>(rand() % gemVariety);
-					}
-				}
+			int cell = row[j] - '0';
+			if (cell == 0) {
+				createCommonGem(j, i);
+			} else if (cell == 1) {
+				grid[i][j] = new ObstacleGem(j, i, gridShape->getPosition());
+			} else {
+				createCommonGem(j, i);
 			}
-			grid[i][j] = new CommonGem(j, i, type,gridShape->getPosition());
 		}
 	}
+}
+
+void Board::createCommonGem(int j, int i) {
+	int gemVariety = static_cast<int>(GemColor::COUNT);
+	GemColor color = static_cast<GemColor>(rand() % gemVariety);
+	bool valid = false;
+	while (!valid) {
+		valid = true;
+		if (j >= 2) {
+			if (grid[i][j - 1]->getColor() == color &&
+				grid[i][j - 2]->getColor() == color) {
+				valid = false;
+				color = static_cast<GemColor>(rand() % gemVariety);
+			}
+		}
+		if (i >= 2) {
+			if (grid[i - 1][j]->getColor() == color &&
+				grid[i - 2][j]->getColor() == color) {
+				valid = false;
+				color = static_cast<GemColor>(rand() % gemVariety);
+			}
+		}
+	}
+	grid[i][j] = new CommonGem(j, i, color, gridShape->getPosition());
 }
 
 void Board::checkMatches() {
@@ -59,9 +119,9 @@ void Board::checkMatches() {
 	for (int i = 0; i < GRID_HEIGHT; i++) {
 		int count = 1;
 		for (int j = 0; j < GRID_WIDTH - 1; j++) {
-			if (grid[i][j]->getType() == grid[i][j + 1]->getType()) {
+			if (grid[i][j]->getColor() == grid[i][j + 1]->getColor()) {
 				count++;
-				if (count >= 3 && (j + 1 == GRID_WIDTH - 1 || grid[i][j + 1]->getType() != grid[i][j + 2]->getType())) {
+				if (count >= 3 && (j + 1 == GRID_WIDTH - 1 || grid[i][j + 1]->getColor() != grid[i][j + 2]->getColor())) {
 					for (int k = j + 1 - count + 1; k <= j + 1; k++) {
 						toDeleteOnGrid[i][k] = true;
 					}
@@ -75,9 +135,9 @@ void Board::checkMatches() {
 	for (int i = 0; i < GRID_WIDTH; i++) {
 		int count = 1;
 		for (int j = 0; j < GRID_HEIGHT - 1; j++) {
-			if (grid[j][i]->getType() == grid[j + 1][i]->getType()) {
+			if (grid[j][i]->getColor() == grid[j + 1][i]->getColor()) {
 				count++;
-				if (count >= 3 && (j + 1 == GRID_HEIGHT - 1 || grid[j + 1][i]->getType() != grid[j + 2][i]->getType())) {
+				if (count >= 3 && (j + 1 == GRID_HEIGHT - 1 || grid[j + 1][i]->getColor() != grid[j + 2][i]->getColor())) {
 					for (int k = j + 1 - count + 1; k <= j + 1; k++) {
 						toDeleteOnGrid[k][i] = true;
 					}
@@ -124,17 +184,21 @@ void Board::refillBoard() {
 }
 
 void Board::applyGravity() {
-	for (int i = 0; i < GRID_WIDTH; i++) {
-		int yPosWrite = GRID_HEIGHT - 1;
-		for (int j = GRID_HEIGHT - 1; j >= 0; j--) {
-			if (grid[j][i] != nullptr) {
-				if (j != yPosWrite) {
-					grid[yPosWrite][i] = grid[j][i];
-					grid[j][i] = nullptr;
-					grid[yPosWrite][i]->updatePosition(i, yPosWrite, gridShape->getPosition());
-				}
-				yPosWrite--;
+	for (int x = 0; x < GRID_WIDTH; x++) {
+		int writeY = GRID_HEIGHT - 1;
+		for (int y = GRID_HEIGHT - 1; y >= 0; y--) {
+			Gem* g = grid[y][x];
+			if (g == nullptr) continue;
+			if (g->getType() == GemType::OBSTACLE) {
+				writeY = y - 1;
+				continue;
 			}
+			if (y != writeY) {
+				grid[writeY][x] = g;
+				grid[y][x] = nullptr;
+				grid[writeY][x]->updatePosition(x, writeY, gridShape->getPosition());
+			}
+			writeY--;
 		}
 	}
 }
@@ -149,28 +213,28 @@ void Board::swapGemsPosition(int x1, int y1, int x2, int y2) {
 
 bool Board::checkMatchAtPosition(int x, int y) {
 	if (y < 0 || y >= GRID_HEIGHT || x < 0 || x >= GRID_WIDTH) return false;
-	GemType centerType = grid[y][x]->getType();
+	GemColor centerType = grid[y][x]->getColor();
 	int count = 1;
 	bool loopStopper = false;
 	for (int i = x - 1; i >= 0 && loopStopper == false; i--) {
-		if (grid[y][i]->getType() == centerType) count++;
+		if (grid[y][i]->getColor() == centerType) count++;
 		else loopStopper = true;
 	}
 	loopStopper = false;
 	for (int i = x + 1; i < GRID_WIDTH && loopStopper == false; i++) {
-		if (grid[y][i]->getType() == centerType) count++;
+		if (grid[y][i]->getColor() == centerType) count++;
 		else loopStopper = true;
 	}
 	loopStopper = false;
 	if (count >= 3) return true;
 	count = 1;
 	for (int i = y - 1; i >= 0 && loopStopper == false; i--) {
-		if (grid[i][x]->getType() == centerType) count++;
+		if (grid[i][x]->getColor() == centerType) count++;
 		else loopStopper = true;
 	}
 	loopStopper = false;
 	for (int i = y + 1; i < GRID_HEIGHT && loopStopper == false; i++) {
-		if (grid[i][x]->getType() == centerType) count++;
+		if (grid[i][x]->getColor() == centerType) count++;
 		else loopStopper = true;
 	}
 	loopStopper = false;
@@ -186,8 +250,8 @@ bool Board::isInsideBoard(const sf::Vector2i& mousePos, int& outRow, int& outCol
 
 	if (mousePos.x < left || mousePos.x >= right || mousePos.y < top || mousePos.y >= bottom) return false;
 
-	outCol = (mousePos.x - (int)left) / GEM_SIZE;
-	outRow = (mousePos.y - (int)top) / GEM_SIZE;
+	outCol = (mousePos.x - (int)left) / (int)GEM_SIZE;
+	outRow = (mousePos.y - (int)top) / (int)GEM_SIZE;
 
 	if (outRow < 0 || outRow >= GRID_HEIGHT || outCol < 0 || outCol >= GRID_WIDTH) return false;
 	return true;
@@ -200,6 +264,7 @@ void Board::handleClick(const sf::Vector2i& mousePos) {
 		selectedX = -1;
 		return;
 	}
+	if (animating) return;
 	if (selectedY == -1 && selectedX == -1) {
 		selectedY = y;
 		selectedX = x;
@@ -217,29 +282,21 @@ void Board::handleClick(const sf::Vector2i& mousePos) {
 		selectedX = x;
 		return;
 	}
+	if (grid[selectedY][selectedX]->getType() == GemType::OBSTACLE ||
+		grid[y][x]->getType() == GemType::OBSTACLE) {
+		selectedY = -1;
+		selectedX = -1;
+		return;
+	}
 	swapGemsPosition(selectedX, selectedY, x, y);
+	animating = true;
+	pendingResolve = true;
 	bool match1 = checkMatchAtPosition(selectedX, selectedY);
 	bool match2 = checkMatchAtPosition(x,y);
-	if (match1 || match2) {
-		bool wasFound = true;
-		while (wasFound == true) {
-			bool found = false;
-			checkMatches();
-			for (int i = 0; i < GRID_HEIGHT && !found; i++) {
-				for (int j = 0; j < GRID_WIDTH && !found; j++) {
-					if (toDeleteOnGrid[i][j]) found = true;
-				}
-			}
-			if (!found) wasFound = false;
-			if (found == true) {
-				destroyMatches();
-				applyGravity();
-				refillBoard();
-			}
-		}
-		movesLeft -= 1;
-	} else {
+	if (!(match1 || match2)) {
 		swapGemsPosition(selectedX, selectedY, x, y);
+	} else {
+		movesLeft -= 1;
 	}
 	selectedY = -1;
 	selectedX = -1;

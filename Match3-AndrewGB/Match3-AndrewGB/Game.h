@@ -19,6 +19,7 @@ private:
 	sf::Music* mainSong;
 	sf::Font* font;
 	sf::RenderWindow *window;
+	sf::Clock clock;
 public:
 	Game();
 	~Game();

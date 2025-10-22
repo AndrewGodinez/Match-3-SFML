@@ -7,11 +7,16 @@
 
 class Gem {
 protected:
+	bool animated = false;
 	ConfigManager configManager;
 	GemType type;
 	sf::Sprite  sprite;
 	sf::Texture texture;
 	sf::Vector2f gridPosition;
+	// Animation state
+	bool moving = false;
+	sf::Vector2f targetPixelPos;
+	float moveSpeed = 900.f; // pixels per second
 public:
 	Gem();
 	~Gem();
@@ -24,6 +29,8 @@ public:
 	void setType(GemType type);
 	void setGridPosition(sf::Vector2f position);
 	GemType getType();
+	virtual GemColor getColor() = 0;
+	bool isMoving() const { return moving; }
 };
 
 class CommonGem : public Gem {
@@ -33,6 +40,7 @@ public:
 	CommonGem();
 	CommonGem(int xPos, int yPos, GemColor color, sf::Vector2f gridOffset);
 	void setTexture() override;
+	GemColor getColor() override;
 };
 
 class BombGem : public Gem {
@@ -43,7 +51,9 @@ public:
 };
 
 class ObstacleGem : public Gem {
+public:
 	ObstacleGem();
 	ObstacleGem(int xPos, int yPos, sf::Vector2f gridOffset);
 	void setTexture() override;
+	GemColor getColor() override { return GemColor::COUNT; }
 };

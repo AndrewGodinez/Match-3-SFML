@@ -5,8 +5,8 @@
 
 enum GemType {
 	COMMON,
-	BOMB,
 	OBSTACLE,
+	BOMB,
 	SIZE
 };
 

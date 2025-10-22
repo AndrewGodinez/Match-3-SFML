@@ -30,6 +30,7 @@ void Game::init(){
 void Game::callNewBoard() {
 	if (gameBoard) delete gameBoard;
 	gameBoard = new Board();
+	clock.restart();
 }
 
 void Game::viewsHandler() {
@@ -53,7 +54,7 @@ void Game::mainMenuView() {
 		HightScoreText.setString("High Score:" + std::to_string(highScore));
 		madeBy.setFont(*font);
 		madeBy.setPosition(16, 560);
-		madeBy.setString("Match-3 Fantasy: Made by Andrew Godinez 2025");
+		madeBy.setString("Match-3 Fantasy: Made by zMinds 2025");
 		playButton->setText("Start");
 		playButton->setPosition(400, 192);
 		backButton->setText("Quit");
@@ -86,6 +87,8 @@ void Game::mainMenuView() {
 
 void Game::mainGameView() {
 	while (view == GAME && window->isOpen()) {
+		float deltaTime = clock.restart().asSeconds();
+
 		sf::Event event;
 		sf::Text score;
 		score.setFont(*font);
@@ -114,6 +117,11 @@ void Game::mainGameView() {
 				view = GAME_OVER;
 			}
 		}
+
+		if (gameBoard) {
+			gameBoard->update(deltaTime);
+		}
+
 		window->clear(sf::Color(29, 41, 81));
 		gameBoard->draw(*window);
 		window->draw(score);

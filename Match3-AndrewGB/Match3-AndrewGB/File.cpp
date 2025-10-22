@@ -72,3 +72,43 @@ std::string XmlFile::getTag(const std::string& tag) {
     return route;
 }
 
+CsvFile::CsvFile() {
+}
+
+std::string CsvFile::getLine(int id) {
+    if (!inFile.is_open()) {
+        openIn();
+    }
+    inFile.clear();
+    inFile.seekg(0, std::ios::beg);
+
+    std::string line;
+    std::string aux;
+    std::string result;
+    int currentLine = 0;
+    bool found = false;
+    while (std::getline(inFile, line) && !found) {
+        if (currentLine == id) {
+            aux = line;
+            found = true;
+        }
+        currentLine++;
+    }
+    try {
+        if (!found) {
+            throw -1;
+        }
+    }
+    catch (int e) {
+        if (e == -1) {
+            std::cerr << "No se encontro la linea: " << id << " en el archivo CSV\n";
+            exit(e);
+        }
+    }
+    for (int i = 0; i < (int)aux.size(); i++) {
+        if (aux[i] != ' ' && aux[i] != '\n' && aux[i] != '\r') {
+            result += aux[i];
+        }
+    }
+    return result;
+}

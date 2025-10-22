@@ -1,26 +1,32 @@
 #pragma once
 #include <SFML/Audio.hpp>
 #include "Gem.h"
+#include "File.h"
 
 class Board {
 private:
+	CsvFile levelFile;
 	static const int GRID_WIDTH = 8;
 	static const int GRID_HEIGHT = 8;
-	const int GEM_SIZE = 64;
+	const float GEM_SIZE = 64.f;
 	Gem* grid[GRID_WIDTH][GRID_WIDTH];
 	bool toDeleteOnGrid[GRID_WIDTH][GRID_HEIGHT];
-	sf::Clock clock;
-	sf::RectangleShape* gridShape = new sf::RectangleShape(sf::Vector2f(static_cast<float>(GEM_SIZE * 8), static_cast<float>(GEM_SIZE * 8)));
+	sf::RectangleShape* gridShape = new sf::RectangleShape(sf::Vector2f(GEM_SIZE * 8.f, GEM_SIZE * 8.f));
 	sf::RectangleShape* selectionRect = new sf::RectangleShape(sf::Vector2f(GEM_SIZE, GEM_SIZE));
 	int selectedX;
 	int selectedY;
 	int score;
 	int movesLeft;
+	bool animating = false;
+	bool pendingResolve = false;
 	
 public:
 	Board();
 	~Board();
+	void loadLevel(int id);
+	void update(float deltaTime);
 	void inicializateBoard();
+	void createCommonGem(int j, int i);
 	void checkMatches();
 	void destroyMatches();
 	void resetDeletedGem();

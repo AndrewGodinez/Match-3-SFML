@@ -1,69 +1,36 @@
 ﻿  Board.cpp
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         with
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         [
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:             T=float
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         ]
-  (compilando archivo de origen "Board.cpp")
-  
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         with
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         [
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:             T=float
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         ]
-  (compilando archivo de origen "Board.cpp")
-  
-  ConfigManager.cpp
+  File.cpp
   Game.cpp
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         with
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         [
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:             T=float
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         ]
-  (compilando archivo de origen "Game.cpp")
-  
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         with
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         [
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:             T=float
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         ]
-  (compilando archivo de origen "Game.cpp")
-  
   Gem.cpp
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(19,35): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(19,35): warning C4244:         with
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(19,35): warning C4244:         [
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(19,35): warning C4244:             T=float
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(19,35): warning C4244:         ]
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(19,30): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(19,30): warning C4244:         with
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(19,30): warning C4244:         [
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(19,30): warning C4244:             T=float
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(19,30): warning C4244:         ]
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(59,36): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(59,36): warning C4244:         with
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(59,36): warning C4244:         [
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(59,36): warning C4244:             T=float
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(59,36): warning C4244:         ]
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(59,30): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(59,30): warning C4244:         with
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(59,30): warning C4244:         [
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(59,30): warning C4244:             T=float
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(59,30): warning C4244:         ]
-  Main.cpp
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         with
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         [
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:             T=float
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,84): warning C4244:         ]
-  (compilando archivo de origen "Main.cpp")
-  
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244: 'argumento': conversión de 'const int' a 'T'; posible pérdida de datos
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         with
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         [
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:             T=float
-C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Board.h(14,74): warning C4244:         ]
-  (compilando archivo de origen "Main.cpp")
-  
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(42,35): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(42,35): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(42,35): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(42,35): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(42,35): warning C4244:         ]
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(42,30): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(42,30): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(42,30): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(42,30): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(42,30): warning C4244:         ]
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(85,36): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(85,36): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(85,36): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(85,36): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(85,36): warning C4244:         ]
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(85,30): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(85,30): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(85,30): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(85,30): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(85,30): warning C4244:         ]
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(118,36): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(118,36): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(118,36): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(118,36): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(118,36): warning C4244:         ]
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(118,30): warning C4244: 'argumento': conversión de 'int' a 'T'; posible pérdida de datos
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(118,30): warning C4244:         with
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(118,30): warning C4244:         [
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(118,30): warning C4244:             T=float
+C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\Match3-AndrewGB\Gem.cpp(118,30): warning C4244:         ]
   Generando código...
   Match3-AndrewGB.vcxproj -> C:\Users\Andrew\Documents\GitHub\Match-3-SFML\Match3-AndrewGB\x64\Debug\Match3-AndrewGB.exe
