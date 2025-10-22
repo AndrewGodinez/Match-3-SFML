@@ -106,9 +106,47 @@ std::string CsvFile::getLine(int id) {
         }
     }
     for (int i = 0; i < (int)aux.size(); i++) {
-        if (aux[i] != ' ' && aux[i] != '\n' && aux[i] != '\r') {
+        if (aux[i] != ',' && aux[i] != '\n' && aux[i] != '\r') {
             result += aux[i];
         }
     }
     return result;
+}
+
+TxtFile::TxtFile() {
+    fileName = "";
+}
+
+void TxtFile::replaceContent(std::string newContent) {
+    outFile = std::ofstream(fileName);
+    try {
+        if (!outFile.is_open()) {
+            throw - 1;
+        }
+    }
+    catch (int e) {
+        if(e==-1) {
+            std::cerr << "No se pudo abrir el archivo para escribir.\n"
+                << "Programa Terminado\n";
+            exit(e);
+		}
+    }
+	outFile << newContent;
+	outFile.close();
+
+}
+
+void TxtFile::addLine(std::string line) {
+    openOut();
+    try {
+        outFile << line << "\n";
+        outFile.close();
+    }
+    catch (int e) {
+        if (e == -1) {
+            std::cerr << "No se pudo abrir el archivo para escribir.\n"
+                << "Programa Terminado\n";
+            exit(e);
+        }
+    }
 }

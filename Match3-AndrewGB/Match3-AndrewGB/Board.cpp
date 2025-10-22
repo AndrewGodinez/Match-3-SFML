@@ -15,7 +15,26 @@ Board::Board() {
 	for (int i = 0; i < GRID_HEIGHT; i++) {
 		for (int j = 0; j < GRID_WIDTH; j++) toDeleteOnGrid[i][j] = false;
 	}
-	loadLevel(1);
+	loadLevel(2);
+	inicializateBoard();
+}
+
+Board::Board(int level) {
+	srand(static_cast<unsigned>(time(nullptr)));
+	score = 0;
+	movesLeft = 20;
+	gridShape->setPosition(sf::Vector2f(144.f, 44.f));
+	selectedX = -1;
+	selectedY = -1;
+	selectionRect->setSize(sf::Vector2f(static_cast<float>(GEM_SIZE), static_cast<float>(GEM_SIZE)));
+	selectionRect->setFillColor(sf::Color::Transparent);
+	selectionRect->setOutlineThickness(3.0f);
+	selectionRect->setOutlineColor(sf::Color(255, 255, 255, 100));
+	gridShape->setFillColor(sf::Color(0, 0, 0, 100));
+	for (int i = 0; i < GRID_HEIGHT; i++) {
+		for (int j = 0; j < GRID_WIDTH; j++) toDeleteOnGrid[i][j] = false;
+	}
+	loadLevel(level);
 	inicializateBoard();
 }
 
@@ -71,6 +90,13 @@ void Board::update(float deltaTime) {
 			}
 		}
 		if (!animating) pendingResolve = false;
+
+		// Si terminamos de resolver y no hay movimientos posibles, remezclar gemas comunes
+		if (!animating && !pendingResolve) {
+			if (!hasAnyPossibleMove()) {
+				reshuffleGems();
+			}
+		}
 	}
 }
 
@@ -319,5 +345,89 @@ int Board::getScore() {
 
 int Board::getMovesLeft() {
 	return movesLeft;
+}
+
+// --- new helpers ---
+bool Board::hasAnyPossibleMove() {
+	// prueba swaps adyacentes entre gemas no obstáculo; si alguno produce match, hay movimiento
+	for (int r = 0; r < GRID_HEIGHT; ++r) {
+		for (int c = 0; c < GRID_WIDTH; ++c) {
+			Gem* a = grid[r][c];
+			if (!a || a->getType() == GemType::OBSTACLE) continue;
+			// derecha
+			if (c + 1 < GRID_WIDTH) {
+				Gem* b = grid[r][c+1];
+				if (b && b->getType() != GemType::OBSTACLE) {
+					// swap temporal en memoria
+					Gem* tmp = grid[r][c]; grid[r][c] = grid[r][c+1]; grid[r][c+1] = tmp;
+					bool ok = checkMatchAtPosition(c, r) || checkMatchAtPosition(c+1, r);
+					// revertir
+					tmp = grid[r][c]; grid[r][c] = grid[r][c+1]; grid[r][c+1] = tmp;
+					if (ok) return true;
+				}
+			}
+			// abajo
+			if (r + 1 < GRID_HEIGHT) {
+				Gem* b = grid[r+1][c];
+				if (b && b->getType() != GemType::OBSTACLE) {
+					Gem* tmp = grid[r][c]; grid[r][c] = grid[r+1][c]; grid[r+1][c] = tmp;
+					bool ok = checkMatchAtPosition(c, r) || checkMatchAtPosition(c, r+1);
+					tmp = grid[r][c]; grid[r][c] = grid[r+1][c]; grid[r+1][c] = tmp;
+					if (ok) return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+
+void Board::reshuffleGems() {
+	for (int r = 0; r < GRID_HEIGHT; ++r) {
+		for (int c = 0; c < GRID_WIDTH; ++c) {
+			if (grid[r][c] && grid[r][c]->getType() != GemType::OBSTACLE) {
+				int gemVariety = static_cast<int>(GemColor::COUNT);
+				GemColor color = static_cast<GemColor>(rand() % gemVariety);
+				bool valid = false;
+				int guard = 0;
+				while (!valid && guard < 64) {
+					valid = true;
+					if (c >= 2) {
+						if (grid[r][c-1] && grid[r][c-2] &&
+							grid[r][c-1]->getType() != GemType::OBSTACLE &&
+							grid[r][c-2]->getType() != GemType::OBSTACLE &&
+							grid[r][c-1]->getColor() == color &&
+							grid[r][c-2]->getColor() == color) valid = false;
+					}
+					if (r >= 2) {
+						if (grid[r-1][c] && grid[r-2][c] &&
+							grid[r-1][c]->getType() != GemType::OBSTACLE &&
+							grid[r-2][c]->getType() != GemType::OBSTACLE &&
+							grid[r-1][c]->getColor() == color &&
+							grid[r-2][c]->getColor() == color) valid = false;
+					}
+					if (!valid) color = static_cast<GemColor>(rand() % gemVariety);
+					guard++;
+				}
+				int x = c, y = r;
+				delete grid[r][c];
+				grid[r][c] = new CommonGem(x, y, color, gridShape->getPosition());
+			}
+		}
+	}
+	int retries = 0;
+	while (!hasAnyPossibleMove() && retries < 10) {
+		for (int r = 0; r < GRID_HEIGHT; ++r) {
+			for (int c = 0; c < GRID_WIDTH; ++c) {
+				if (grid[r][c] && grid[r][c]->getType() != GemType::OBSTACLE) {
+					int gemVariety = static_cast<int>(GemColor::COUNT);
+					GemColor color = static_cast<GemColor>(rand() % gemVariety);
+					int x = c, y = r;
+					delete grid[r][c];
+					grid[r][c] = new CommonGem(x, y, color, gridShape->getPosition());
+				}
+			}
+		}
+		retries++;
+	}
 }
 

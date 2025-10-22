@@ -1,12 +1,15 @@
 #include "Game.h"
 
 Game::Game() {
+	beatedLevels = 2;
+	selectedLevel = 0;
 	gameBoard = nullptr;
 	highScore = 0;
 	lastScore = 0;
 	mainSong = new sf::Music();
 	font = new sf::Font();
 	window = new sf::RenderWindow(sf::VideoMode(800,600), "Match-3 Fantasy", sf::Style::Close);
+	window->setFramerateLimit(60);
 }
 
 Game::~Game() {
@@ -22,14 +25,12 @@ void Game::init(){
 	else mainSong->openFromFile("assets/song1.ogg");
 	if (!font->loadFromFile("assets/Ubuntu-Title.ttf")) std::cerr << "ERROR Trying to load: assets/Ubuntu-Title.ttf\n";
 	else font->loadFromFile("assets/Ubuntu-Title.ttf");
-	playButton = new Button(0, 0, "Play");
-	backButton = new Button(0, 0, "Back");
 	viewsHandler();
 }
 
 void Game::callNewBoard() {
 	if (gameBoard) delete gameBoard;
-	gameBoard = new Board();
+	gameBoard = new Board(selectedLevel);
 	clock.restart();
 }
 
@@ -40,24 +41,24 @@ void Game::viewsHandler() {
 		if (view == MAIN_MENU) mainMenuView();
 		if (view == GAME) mainGameView();
 		if (view == GAME_OVER) gameOverView();
+		if (view == LEVELS) levelMenuView();
 		window->clear();
 	}
 }
 
 void Game::mainMenuView() {
+	Button* playButton = new Button(0, 0, "Start");
+	Button* backButton = new Button(0, 0, "Back");
 	while (view == MAIN_MENU && window->isOpen()) {
 		sf::Event event;
 		sf::Text HightScoreText;
 		sf::Text madeBy;
 		HightScoreText.setFont(*font);
 		HightScoreText.setPosition(16, 0);
-		HightScoreText.setString("High Score:" + std::to_string(highScore));
 		madeBy.setFont(*font);
 		madeBy.setPosition(16, 560);
 		madeBy.setString("Match-3 Fantasy: Made by zMinds 2025");
-		playButton->setText("Start");
 		playButton->setPosition(400, 192);
-		backButton->setText("Quit");
 		backButton->setPosition(400, 384);
 		while (window->pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
@@ -68,8 +69,7 @@ void Game::mainMenuView() {
 			backButton->setTextureIndicator(mousePos);
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 				if (playButton->isMouseInsideButton(mousePos)) {
-					callNewBoard();
-					view = GAME;
+					view = LEVELS;
 				}
 				if (backButton->isMouseInsideButton(mousePos)) {
 					window->close();
@@ -83,6 +83,53 @@ void Game::mainMenuView() {
 			backButton->draw(*window);
 			window->display();
 	}
+	delete playButton;
+	delete backButton;
+}
+
+void Game::levelMenuView() {
+	Button* level1Button = new Button(400, 108, "Level 1");
+	Button* level2Button = new Button(400, 308, "Level 2");
+	Button* level3Button = new Button(400, 508, "Level 3");
+	while (view == LEVELS && window->isOpen()) {
+		sf::Text levelsText;
+		
+		sf::Event event;
+		while (window->pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				window->close();
+			}
+			sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+			level1Button->setTextureIndicator(mousePos);
+			level2Button->setTextureIndicator(mousePos);
+			level3Button->setTextureIndicator(mousePos);
+			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+				if (level1Button->isMouseInsideButton(mousePos)) {
+					selectedLevel = 1;
+					callNewBoard();
+					view = GAME;
+				}
+				if (level2Button->isMouseInsideButton(mousePos) && beatedLevels >= 1) {
+					selectedLevel = 2;
+					callNewBoard();
+					view = GAME;
+				}
+				if (level3Button->isMouseInsideButton(mousePos) && beatedLevels > 1 ) {
+					selectedLevel = 3;
+					callNewBoard();
+					view = GAME;
+				}
+			}
+		}
+		window->clear(sf::Color(29, 41, 81));
+		level1Button->draw(*window);
+		level2Button->draw(*window);
+		level3Button->draw(*window);
+		window->display();
+	}
+	delete level1Button;
+	delete level2Button;
+	delete level3Button;
 }
 
 void Game::mainGameView() {
@@ -128,9 +175,12 @@ void Game::mainGameView() {
 		window->draw(moves);
 		window->display();
 	}
+
 }
 
 void Game::gameOverView() {
+	Button* playButton = new Button(400, 192, "Start");
+	Button* backButton = new Button(400, 384, "Return to Menu");
 	while (view == GAME_OVER && window->isOpen()) {
 		sf::Event event;
 		sf::Text lastScoreText;
@@ -140,11 +190,7 @@ void Game::gameOverView() {
 		sf::Text HightScoreText;
 		HightScoreText.setFont(*font);
 		HightScoreText.setPosition(16, 32);
-		HightScoreText.setString("High Score:" + std::to_string(highScore));
-		playButton->setText("Start");
-		playButton->setPosition(400, 192);
-		backButton->setText("Return to Menu");
-		backButton->setPosition(400, 384);
+		HightScoreText.setString("High Score:" + std::to_string(highScore));	
 		while (window->pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
 				window->close();
@@ -169,4 +215,6 @@ void Game::gameOverView() {
 		backButton->draw(*window);
 		window->display();
 	}
+	delete playButton;
+	delete backButton;
 }

@@ -26,3 +26,10 @@ public:
 	CsvFile();
 	std::string getLine(int id);
 };
+
+class TxtFile : public File {
+public:
+	TxtFile();
+	void replaceContent(std::string newContent);
+	void addLine(std::string line);
+};

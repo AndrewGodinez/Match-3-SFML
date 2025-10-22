@@ -19,9 +19,14 @@ private:
 	int movesLeft;
 	bool animating = false;
 	bool pendingResolve = false;
+
+	// Helpers
+	bool hasAnyPossibleMove();
+	void reshuffleGems();
 	
 public:
 	Board();
+	Board(int level);
 	~Board();
 	void loadLevel(int id);
 	void update(float deltaTime);

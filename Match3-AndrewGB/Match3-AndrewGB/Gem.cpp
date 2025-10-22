@@ -13,7 +13,6 @@ void Gem::update(float deltaTime) {
 		sf::Vector2f dir = targetPixelPos - pos;
 		float len2 = dir.x * dir.x + dir.y * dir.y;
 		if (len2 < 1.0f) {
-			// Snap to target
 			sprite.setPosition(targetPixelPos);
 			moving = false;
 			return;
@@ -23,7 +22,6 @@ void Gem::update(float deltaTime) {
 		float stepLen = moveSpeed * deltaTime;
 		sf::Vector2f step(norm.x * stepLen, norm.y * stepLen);
 		if ((step.x * step.x + step.y * step.y) >= len2) {
-			// Reached in this frame
 			sprite.setPosition(targetPixelPos);
 			moving = false;
 		} else {
@@ -102,7 +100,6 @@ void CommonGem::setTexture() {
 			exit(e);
 		}
 	}
-	std::cout << texturePath << " Textura cargada\n";
 	texture.loadFromFile(texturePath);
 	sprite.setTexture(texture);
 }
@@ -135,7 +132,6 @@ void ObstacleGem::setTexture() {
 			exit(e);
 		}
 	}
-	std::cout << texturePath << " Textura cargada\n";
 	texture.loadFromFile(texturePath);
 	sprite.setTexture(texture);
 }
