@@ -12,6 +12,7 @@ enum GameState {
 
 class Game {
 private:
+	bool areItemsLoaded;
 	int selectedLevel;
 	int beatedLevels;
 	TxtFile scoreFile;

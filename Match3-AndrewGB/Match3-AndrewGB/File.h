@@ -32,4 +32,6 @@ public:
 	TxtFile();
 	void replaceContent(std::string newContent);
 	void addLine(std::string line);
+	bool isTextOnFile(std::string text);
+	std::string getFirstLine();
 };

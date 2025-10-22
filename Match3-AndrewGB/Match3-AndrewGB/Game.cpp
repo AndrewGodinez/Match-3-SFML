@@ -1,6 +1,7 @@
 #include "Game.h"
 
 Game::Game() {
+	areItemsLoaded = false;
 	beatedLevels = 2;
 	selectedLevel = 0;
 	gameBoard = nullptr;
@@ -25,6 +26,23 @@ void Game::init(){
 	else mainSong->openFromFile("assets/song1.ogg");
 	if (!font->loadFromFile("assets/Ubuntu-Title.ttf")) std::cerr << "ERROR Trying to load: assets/Ubuntu-Title.ttf\n";
 	else font->loadFromFile("assets/Ubuntu-Title.ttf");
+	TxtFile runner;
+	runner.setFileName("run.ini");
+	runner.openIn();
+	if (runner.isTextOnFile("firstInit = true")) {
+		for (int i = 0; i < 3; i++) {
+			scoreFile.setFileName("level" + std::to_string(i + 1) + "HS.ini");
+			scoreFile.openOut();
+			scoreFile.replaceContent("0");
+		}
+		saveFile.setFileName("save.ini");
+		saveFile.openOut();
+		saveFile.replaceContent("0");
+		runner.replaceContent("firstInit = false");
+	}
+	saveFile.setFileName("save.ini");
+	saveFile.openIn();
+	beatedLevels = stoi(saveFile.getFirstLine());
 	viewsHandler();
 }
 
@@ -48,7 +66,7 @@ void Game::viewsHandler() {
 
 void Game::mainMenuView() {
 	Button* playButton = new Button(0, 0, "Start");
-	Button* backButton = new Button(0, 0, "Back");
+	Button* backButton = new Button(0, 0, "Exit");
 	while (view == MAIN_MENU && window->isOpen()) {
 		sf::Event event;
 		sf::Text HightScoreText;
@@ -93,8 +111,19 @@ void Game::levelMenuView() {
 	Button* level3Button = new Button(400, 508, "Level 3");
 	while (view == LEVELS && window->isOpen()) {
 		sf::Text levelsText;
-		
 		sf::Event event;
+		if (beatedLevels == 0) {
+			level2Button->setText("Beat Level 1 to Play");
+		}
+		else {
+			level2Button->setText("Level 2");
+		}
+		if (beatedLevels < 2) {
+			level3Button->setText("Beat Level 2 to Play");
+		}
+		else {
+			level3Button->setText("Level 3");
+		}
 		while (window->pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
 				window->close();
@@ -160,6 +189,9 @@ void Game::mainGameView() {
 				lastScore = gameBoard->getScore();
 				if (lastScore > highScore) {
 					highScore = lastScore;
+					scoreFile.setFileName("level" + std::to_string(selectedLevel) + "HS.ini");
+					scoreFile.openOut();
+					scoreFile.replaceContent(std::to_string(highScore));
 				}
 				view = GAME_OVER;
 			}
@@ -190,7 +222,9 @@ void Game::gameOverView() {
 		sf::Text HightScoreText;
 		HightScoreText.setFont(*font);
 		HightScoreText.setPosition(16, 32);
-		HightScoreText.setString("High Score:" + std::to_string(highScore));	
+		scoreFile.setFileName("level" + std::to_string(selectedLevel) + "HS.ini");
+		scoreFile.openIn();
+		HightScoreText.setString("High Score:" + scoreFile.getFirstLine());	
 		while (window->pollEvent(event)) {
 			if (event.type == sf::Event::Closed) {
 				window->close();

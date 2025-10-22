@@ -150,3 +150,22 @@ void TxtFile::addLine(std::string line) {
         }
     }
 }
+
+bool TxtFile::isTextOnFile(std::string text) {
+	std::string line;
+    while (std::getline(inFile, line)) {
+        if (line == text) {
+            inFile.close();
+            return true;
+        }
+	}
+	return false;
+}
+
+std::string TxtFile::getFirstLine() {
+    std::string line;
+    std::getline(inFile, line);
+    return line;
+}
+
+
