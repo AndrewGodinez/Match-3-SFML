@@ -25,6 +25,7 @@ private:
 	sf::Font* font;
 	sf::RenderWindow *window;
 	sf::Clock clock;
+	int levelScoreRequirement;
 public:
 	Game();
 	~Game();
@@ -34,6 +35,7 @@ public:
 	void mainMenuView();
 	void levelMenuView();
 	void mainGameView();
+	void gameWinView();
 	void gameOverView();
 };
 

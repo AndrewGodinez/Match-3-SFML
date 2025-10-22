@@ -4,7 +4,7 @@ File::File() {
 	fileName = "";
 }
 
-void File::openIn() {
+bool File::openIn() {
     try {
         inFile = std::ifstream(fileName);
         if (!inFile.is_open()) {
@@ -13,11 +13,11 @@ void File::openIn() {
     }
     catch (int e) {
         if (e == -1) {
-            std::cerr << "No se pudo abrir el archivo para leer.\n"
-                << "Programa Terminado\n";
-            exit(e);
+            std::cerr << "No se pudo abrir el archivo para leer.\n";
+            return false;
         }
     }
+    return true;
 }
 
 void File::openOut() {

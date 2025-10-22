@@ -10,7 +10,7 @@ protected:
 	std::string fileName;
 public:
 	File();
-	void openIn();
+	bool openIn();
 	void openOut();
 	void setFileName(std::string name);
 };
