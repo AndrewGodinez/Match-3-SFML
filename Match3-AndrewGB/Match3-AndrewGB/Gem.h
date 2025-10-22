@@ -7,6 +7,7 @@
 
 class Gem {
 protected:
+	ConfigManager configManager;
 	GemType type;
 	sf::Sprite  sprite;
 	sf::Texture texture;
@@ -20,6 +21,8 @@ public:
 	virtual void setTexture() = 0;
 	void loadTexture(std::string& texture);
 	void draw(sf::RenderWindow &window);
+	void setType(GemType type);
+	void setGridPosition(sf::Vector2f position);
 	GemType getType();
 };
 
@@ -29,4 +32,18 @@ private:
 public:
 	CommonGem();
 	CommonGem(int xPos, int yPos, GemColor color, sf::Vector2f gridOffset);
+	void setTexture() override;
+};
+
+class BombGem : public Gem {
+public:
+	BombGem();
+	BombGem(int xPos, int yPos, sf::Vector2f gridOffset);
+	void setTexture() override;
+};
+
+class ObstacleGem : public Gem {
+	ObstacleGem();
+	ObstacleGem(int xPos, int yPos, sf::Vector2f gridOffset);
+	void setTexture() override;
 };

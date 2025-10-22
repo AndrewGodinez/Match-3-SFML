@@ -1,14 +1,13 @@
 #pragma once
-#include <iostream>
-#include <string>
-#include <fstream>
+#include "File.h"
+
+#define TEXTURE_PATHS "config/textures_path.xml"
 
 enum GemType {
 	COMMON,
 	BOMB,
 	OBSTACLE,
-
-	COUNT
+	SIZE
 };
 
 enum GemColor {
@@ -17,19 +16,19 @@ enum GemColor {
 	RED,
 	BLUE,
 	YELLOW,
-
 	COUNT
 };
 
 class ConfigManager {
 private:
-	std::string texturePaths = "config/textures_path.xml";
+	XmlFile configFile;
 public:
 	ConfigManager();
 	~ConfigManager();
-	std::string colorToString();
-	std::string typeToString();
-
+	std::string colorToString(GemColor color);
+	std::string typeToString(GemType type);
+	std::string getTexturePath(GemType type);
+	std::string getTexturePath(GemType type, GemColor color);
 };
 
 

@@ -29,8 +29,8 @@ Board::~Board() {
 void Board::inicializateBoard() {
 	for (int i = 0; i < GRID_HEIGHT; i++) {
 		for (int j = 0; j < GRID_WIDTH; j++) {
-			int gemVariety = static_cast<int>(GemType::COUNT);
-			GemType type = static_cast<GemType>(rand() % gemVariety);
+			int gemVariety = static_cast<int>(GemColor::COUNT);
+			GemColor type = static_cast<GemColor>(rand() % gemVariety);
 			bool valid = false;
 			while (!valid) {
 				valid = true;
@@ -38,18 +38,18 @@ void Board::inicializateBoard() {
 					if (grid[i][j - 1]->getType() == type &&
 						grid[i][j - 2]->getType() == type) {
 						valid = false;
-						type = static_cast<GemType>(rand() % gemVariety);
+						type = static_cast<GemColor>(rand() % gemVariety);
 					}
 				}
 				if (i >= 2) {
 					if (grid[i - 1][j]->getType() == type &&
 						grid[i - 2][j]->getType() == type) {
 						valid = false;
-						type = static_cast<GemType>(rand() % gemVariety);
+						type = static_cast<GemColor>(rand() % gemVariety);
 					}
 				}
 			}
-			grid[i][j] = new Gem(j, i, gridShape->getPosition(), type);
+			grid[i][j] = new CommonGem(j, i, type,gridShape->getPosition());
 		}
 	}
 }
@@ -115,9 +115,9 @@ void Board::refillBoard() {
 	for (int i = 0; i < GRID_HEIGHT; i++) {
 		for (int j = 0; j < GRID_WIDTH; j++) {
 			if (grid[i][j] == nullptr) {
-				int gemVariety = static_cast<int>(GemType::COUNT);
-				GemType type = static_cast<GemType>(rand() % gemVariety);
-				grid[i][j] = new Gem(j, i, gridShape->getPosition(), type);
+				int gemVariety = static_cast<int>(GemColor::COUNT);
+				GemColor type = static_cast<GemColor>(rand() % gemVariety);
+				grid[i][j] = new CommonGem(j, i, type, gridShape->getPosition());
 			}
 		}
 	}

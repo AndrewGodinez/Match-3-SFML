@@ -8,7 +8,7 @@
             <BLUE>assets/gem4.png</BLUE>
             <YELLOW>assets/gem5.png</YELLOW>
         </COMMON>
-        <BOMB></BOMB>
-        <OBSTACLE></OBSTACLE>
+        <BOMB>assets/bomb.png</BOMB>
+        <OBSTACLE>assets/obstacle.png</OBSTACLE>
     </gems>
 </textures>
