@@ -25,6 +25,7 @@ private:
 	sf::Font* font;
 	sf::RenderWindow *window;
 	sf::Clock clock;
+	sf::Image icon;
 	int levelScoreRequirement;
 public:
 	Game();

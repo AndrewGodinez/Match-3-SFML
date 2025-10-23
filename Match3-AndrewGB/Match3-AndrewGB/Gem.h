@@ -13,10 +13,9 @@ protected:
 	sf::Sprite  sprite;
 	sf::Texture texture;
 	sf::Vector2f gridPosition;
-	// Animation state
 	bool moving = false;
 	sf::Vector2f targetPixelPos;
-	float moveSpeed = 900.f; // pixels per second
+	float moveSpeed = 900.f;
 public:
 	Gem();
 	~Gem();

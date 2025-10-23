@@ -50,7 +50,7 @@ std::string XmlFile::getTag(const std::string& tag) {
     std::string closeTag = "</" + tag + ">";
     bool found = false;
     while (std::getline(inFile, line) && found != true) {
-        if (line.find("<" + tag + ">") != std::string::npos) {
+        if (line.find(openTag) != std::string::npos) {
             std::size_t start = line.find(openTag) + openTag.size();
             std::size_t end = line.find(closeTag);
             route = line.substr(start, end - start);

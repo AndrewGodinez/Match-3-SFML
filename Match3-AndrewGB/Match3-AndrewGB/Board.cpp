@@ -347,26 +347,21 @@ int Board::getMovesLeft() {
 	return movesLeft;
 }
 
-// --- new helpers ---
+
 bool Board::hasAnyPossibleMove() {
-	// prueba swaps adyacentes entre gemas no obstáculo; si alguno produce match, hay movimiento
 	for (int r = 0; r < GRID_HEIGHT; ++r) {
 		for (int c = 0; c < GRID_WIDTH; ++c) {
 			Gem* a = grid[r][c];
 			if (!a || a->getType() == GemType::OBSTACLE) continue;
-			// derecha
 			if (c + 1 < GRID_WIDTH) {
 				Gem* b = grid[r][c+1];
 				if (b && b->getType() != GemType::OBSTACLE) {
-					// swap temporal en memoria
 					Gem* tmp = grid[r][c]; grid[r][c] = grid[r][c+1]; grid[r][c+1] = tmp;
 					bool ok = checkMatchAtPosition(c, r) || checkMatchAtPosition(c+1, r);
-					// revertir
 					tmp = grid[r][c]; grid[r][c] = grid[r][c+1]; grid[r][c+1] = tmp;
 					if (ok) return true;
 				}
 			}
-			// abajo
 			if (r + 1 < GRID_HEIGHT) {
 				Gem* b = grid[r+1][c];
 				if (b && b->getType() != GemType::OBSTACLE) {

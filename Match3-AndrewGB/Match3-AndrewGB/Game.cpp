@@ -1,6 +1,8 @@
 #include "Game.h"
 
 Game::Game() {
+	view = MAIN_MENU;
+	levelScoreRequirement = 0;
 	areItemsLoaded = false;
 	beatedLevels = 2;
 	selectedLevel = 0;
@@ -11,6 +13,8 @@ Game::Game() {
 	font = new sf::Font();
 	window = new sf::RenderWindow(sf::VideoMode(800,600), "Match-3 Fantasy", sf::Style::Close);
 	window->setFramerateLimit(60);
+	icon.loadFromFile("icon.png");
+	window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 }
 
 Game::~Game() {
@@ -21,7 +25,6 @@ Game::~Game() {
 }
 
 void Game::init(){
-	view = MAIN_MENU;
 	if (!mainSong->openFromFile("assets/song1.ogg")) std::cerr << "ERROR Trying to load: assets/song1.ogg\n";
 	else mainSong->openFromFile("assets/song1.ogg");
 	if (!font->loadFromFile("assets/Ubuntu-Title.ttf")) std::cerr << "ERROR Trying to load: assets/Ubuntu-Title.ttf\n";
@@ -148,8 +151,8 @@ void Game::levelMenuView() {
 			level3Button->setTextureIndicator(mousePos);
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 				if (level1Button->isMouseInsideButton(mousePos)) {
-					selectedLevel = 1;
 					levelScoreRequirement = 800;
+					selectedLevel = 1;
 					callNewBoard();
 					view = GAME;
 				}
@@ -225,7 +228,6 @@ void Game::mainGameView() {
 				}
 			}
 		}
-
 		window->clear(sf::Color(29, 41, 81));
 		gameBoard->draw(*window);
 		window->draw(score);
@@ -233,7 +235,6 @@ void Game::mainGameView() {
 		window->draw(requirement);
 		window->display();
 	}
-
 }
 
 void Game::gameWinView() {
@@ -273,6 +274,17 @@ void Game::gameWinView() {
 							saveFile.setFileName("save.ini");
 							saveFile.openOut();
 							saveFile.replaceContent(std::to_string(beatedLevels));
+						}
+						switch (selectedLevel) {
+						case 1:
+							levelScoreRequirement = 800;
+							break;
+						case 2:
+							levelScoreRequirement = 1000;
+							break;
+						case 3:
+							levelScoreRequirement = 1200;
+							break;
 						}
 						callNewBoard();
 						view = GAME;
