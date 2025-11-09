@@ -1,10 +1,12 @@
 #pragma once
 #include <SFML/Audio.hpp>
+#include <SFML/Audio/SoundBuffer.hpp>
 #include "Gem.h"
 #include "File.h"
 
 class Board {
 private:
+
 	CsvFile levelFile;
 	static const int GRID_WIDTH = 8;
 	static const int GRID_HEIGHT = 8;
@@ -12,6 +14,10 @@ private:
 	Gem* grid[GRID_WIDTH][GRID_WIDTH];
 	bool toDeleteOnGrid[GRID_WIDTH][GRID_HEIGHT];
 	bool fourInMatch[GRID_WIDTH][GRID_HEIGHT];
+	sf::SoundBuffer explosionBuffer;
+	sf::Sound explosionSound;
+	sf::SoundBuffer bombBuffer;
+	sf::Sound bombSound;
 	sf::RectangleShape* gridShape = new sf::RectangleShape(sf::Vector2f(GEM_SIZE * 8.f, GEM_SIZE * 8.f));
 	sf::RectangleShape* selectionRect = new sf::RectangleShape(sf::Vector2f(GEM_SIZE, GEM_SIZE));
 	int selectedX;

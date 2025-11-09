@@ -1,6 +1,8 @@
 #include "Button.h"
 
 Button::Button() {
+	buttonBuffer.loadFromFile("assets/button_hover.ogg");
+	buttonSound.setBuffer(buttonBuffer);
 	buttonSprite = new sf::Sprite();
 	texture = new sf::Texture();
 	if (!texture->loadFromFile("assets/button.png")) std::cerr << "ERROR Trying to load: assets/button.png\n";
@@ -44,11 +46,11 @@ void Button::draw(sf::RenderWindow& window) {
 }
 
 bool Button::isMouseInsideButton(sf::Vector2i& mousePos) {
+	buttonSound.play();
 	float left = buttonSprite->getPosition().x - 150.f;
 	float top = buttonSprite->getPosition().y - 64.f;
 	float right = buttonSprite->getPosition().x + texture->getSize().x - 150.f;
 	float bottom = buttonSprite->getPosition().y + texture->getSize().y - 64.f;
-
 	return (mousePos.x >= left && mousePos.x < right && mousePos.y >= top && mousePos.y < bottom);
 }
 

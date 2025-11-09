@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class Button {
 private:
@@ -9,6 +10,8 @@ private:
 	sf::Vector2f position;
 	sf::Font* font;
 	sf::Text* buttonText;
+	sf::SoundBuffer buttonBuffer;
+	sf::Sound buttonSound;
 public:
 	Button();
 	~Button();

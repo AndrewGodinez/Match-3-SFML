@@ -36,6 +36,10 @@ Board::Board(int level) {
 	selectionRect->setOutlineThickness(3.0f);
 	selectionRect->setOutlineColor(sf::Color(255, 255, 255, 100));
 	gridShape->setFillColor(sf::Color(0, 0, 0, 100));
+	explosionBuffer.loadFromFile("assets/gem_destroy.ogg");
+	explosionSound.setBuffer(explosionBuffer);
+	bombBuffer.loadFromFile("assets/bomb_gem.ogg");
+	bombSound.setBuffer(bombBuffer);
 	for (int i = 0; i < GRID_HEIGHT; i++) {
 		for (int j = 0; j < GRID_WIDTH; j++) {
 			toDeleteOnGrid[i][j] = false;
@@ -92,6 +96,7 @@ void Board::update(float deltaTime) {
 				}
 			}
 			destroyMatches();
+			explosionSound.play();
 			if (pendingBomb) {
 				if (pendingBombY >= 0 && pendingBombY < GRID_HEIGHT && pendingBombX >= 0 && pendingBombX < GRID_WIDTH) {
 					delete grid[pendingBombY][pendingBombX];
@@ -166,7 +171,6 @@ void Board::checkMatches() {
 	resetDeletedGem();
 	if (pendingExpl) {
 		if (pendingExplY >= 0 && pendingExplY < GRID_HEIGHT && pendingExplX >= 0 && pendingExplX < GRID_WIDTH) {
-			// mark row
 			for (int c = 0; c < GRID_WIDTH; ++c) {
 				Gem* g = grid[pendingExplY][c];
 				if (g && g->getType() != GemType::OBSTACLE) {
@@ -231,6 +235,7 @@ void Board::destroyMatches() {
 		for (int j = 0; j < GRID_WIDTH; j++) {
 			if (toDeleteOnGrid[i][j]) {
 				delete grid[i][j];
+				
 				grid[i][j] = nullptr;
 					if (fourInMatch[i][j]) {
 						score += 20; 
@@ -370,6 +375,7 @@ void Board::handleClick(const sf::Vector2i& mousePos) {
 		movesLeft -= 1;
 		selectedY = -1;
 		selectedX = -1;
+		bombSound.play();
 		return;
 	}
 	if (selectedY == -1 && selectedX == -1) {
@@ -473,7 +479,6 @@ int Board::getMaxRunLengthAtPosition(int x, int y) {
 	Gem* center = grid[y][x];
 	if (!center) return 0;
 	GemColor centerType = center->getColor();
-	// horizontal
 	int countH = 1;
 	for (int i = x - 1; i >= 0; --i) {
 		if (grid[y][i] && grid[y][i]->getColor() == centerType) countH++; else break;
