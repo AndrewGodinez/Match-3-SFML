@@ -7,7 +7,8 @@ enum GameState {
 	GAME,
 	GAME_OVER,
 	GAME_WIN,
-	LEVELS
+	LEVELS,
+	HIGH_SCORES
 };
 
 class Game {
@@ -15,8 +16,8 @@ private:
 	bool areItemsLoaded;
 	int selectedLevel;
 	int beatedLevels;
-	TxtFile scoreFile;
-	TxtFile saveFile;
+	XmlFile scoreFile;
+	XmlFile saveFile;
 	int highScore;
 	int lastScore;
 	GameState view;
@@ -38,5 +39,6 @@ public:
 	void mainGameView();
 	void gameWinView();
 	void gameOverView();
+	void highScoreView();
 };
 

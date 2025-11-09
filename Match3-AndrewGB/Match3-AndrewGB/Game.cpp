@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Button.h"
 
 Game::Game() {
 	view = MAIN_MENU;
@@ -82,8 +83,8 @@ void Game::viewsHandler() {
 }
 
 void Game::mainMenuView() {
-	Button* playButton = new Button(0, 0, "Start");
-	Button* backButton = new Button(0, 0, "Exit");
+	Button* playButton = new Button(0, 0, "Start", sf::Vector2i(320, 128));
+	Button* backButton = new Button(0, 0, "Exit", sf::Vector2i(320, 128));
 	while (view == MAIN_MENU && window->isOpen()) {
 		sf::Event event;
 		sf::Text HightScoreText;
@@ -123,9 +124,11 @@ void Game::mainMenuView() {
 }
 
 void Game::levelMenuView() {
-	Button* level1Button = new Button(400, 108, "Level 1");
-	Button* level2Button = new Button(400, 308, "Level 2");
-	Button* level3Button = new Button(400, 508, "Level 3");
+	Button* level1Button = new Button(400, 108, "Level 1", sf::Vector2i(320, 128));
+	Button* level2Button = new Button(400, 308, "Level 2", sf::Vector2i(320, 128));
+	Button* level3Button = new Button(400, 508, "Level 3", sf::Vector2i(320, 128));
+	Button* backButton = new Button(64, 548, "Back", sf::Vector2i(64, 64));
+	
 	while (view == LEVELS && window->isOpen()) {
 		sf::Text levelsText;
 		sf::Event event;
@@ -149,6 +152,7 @@ void Game::levelMenuView() {
 			level1Button->setTextureIndicator(mousePos);
 			level2Button->setTextureIndicator(mousePos);
 			level3Button->setTextureIndicator(mousePos);
+			backButton->setTextureIndicator(mousePos);
 			if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 				if (level1Button->isMouseInsideButton(mousePos)) {
 					levelScoreRequirement = 800;
@@ -168,9 +172,13 @@ void Game::levelMenuView() {
 					callNewBoard();
 					view = GAME;
 				}
+				if (backButton->isMouseInsideButton(mousePos)) {
+					view = MAIN_MENU;
+				}
 			}
 		}
 		window->clear(sf::Color(29, 41, 81));
+		backButton->draw(*window);
 		level1Button->draw(*window);
 		level2Button->draw(*window);
 		level3Button->draw(*window);
@@ -179,9 +187,11 @@ void Game::levelMenuView() {
 	delete level1Button;
 	delete level2Button;
 	delete level3Button;
+	delete backButton;
 }
 
 void Game::mainGameView() {
+	Button* backButton = new Button(64, 548, "Back", sf::Vector2i(64, 64));
 	while (view == GAME && window->isOpen()) {
 		float deltaTime = clock.restart().asSeconds();
 		sf::Event event;
@@ -211,7 +221,11 @@ void Game::mainGameView() {
 			if (gameBoard->getMovesLeft() > 0) {
 				if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
 					sf::Vector2i mousePos = sf::Mouse::getPosition(*window);
+					backButton->setTextureIndicator(mousePos);
 					gameBoard->handleClick(mousePos);
+					if (backButton->isMouseInsideButton(mousePos)) {
+						view = LEVELS;
+					}
 				}
 			}
 			else {
@@ -231,18 +245,20 @@ void Game::mainGameView() {
 			}
 		}
 		window->clear(sf::Color(29, 41, 81));
+		backButton->draw(*window);
 		gameBoard->draw(*window);
 		window->draw(score);
 		window->draw(moves);
 		window->draw(requirement);
 		window->display();
 	}
+	delete backButton;
 }
 
 void Game::gameWinView() {
-	Button* nextButton = new Button(400, 108, "Next level");
-	Button* replayButton = new Button(400, 308, "Replay Level");
-	Button* backButton = new Button(400, 508, "Return to menu");
+	Button* nextButton = new Button(400, 108, "Next level", sf::Vector2i(320, 128));
+	Button* replayButton = new Button(400, 308, "Replay Level", sf::Vector2i(320, 128));
+	Button* backButton = new Button(400, 508, "Return to menu", sf::Vector2i(320, 128));
 	while (view == GAME_WIN && window->isOpen()) {
 		sf::Event event;
 		sf::Text lastScoreText;
@@ -318,8 +334,8 @@ void Game::gameWinView() {
 }
 
 void Game::gameOverView() {
-	Button* playButton = new Button(400, 192, "Replay");
-	Button* backButton = new Button(400, 384, "Return to Menu");
+	Button* playButton = new Button(400, 192, "Replay", sf::Vector2i(320, 128));
+	Button* backButton = new Button(400, 384, "Return to Menu", sf::Vector2i(320, 128));
 	while (view == GAME_OVER && window->isOpen()) {
 		sf::Event event;
 		sf::Text lastScoreText;
@@ -358,4 +374,17 @@ void Game::gameOverView() {
 	}
 	delete playButton;
 	delete backButton;
+}
+
+void Game::highScoreView() {
+	while (view == HIGH_SCORES && window->isOpen()) {
+		sf::Event event;
+		while (window->pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
+				window->close();
+			}
+		}
+		window->clear(sf::Color(29, 41, 81));
+		window->display();
+	}
 }

@@ -1,5 +1,6 @@
 #include "Button.h"
 
+
 Button::Button() {
 	buttonBuffer.loadFromFile("assets/button_hover.ogg");
 	buttonSound.setBuffer(buttonBuffer);
@@ -23,21 +24,26 @@ Button::~Button() {
 	delete buttonText;
 }
 
-Button::Button(int xPos, int yPos, std::string text) {
+Button::Button(int xPos, int yPos, std::string text, sf::Vector2i size) {
 	buttonSprite = new sf::Sprite();
 	texture = new sf::Texture();
-	if (!texture->loadFromFile("assets/button.png")) std::cerr << "ERROR Trying to load: assets/button.png\n";
-	else texture->loadFromFile("assets/button.png");
+	if (!texture->loadFromFile("assets/button.new.png")) std::cerr << "ERROR Trying to load: assets/button.png\n";
+	else texture->loadFromFile("assets/button.new.png");
 	position = (sf::Vector2f(static_cast<float>(xPos), static_cast<float>(yPos)));
 	buttonSprite->setPosition(position);
 	font = new sf::Font();
 	if (!font->loadFromFile("assets/Ubuntu-Title.ttf")) std::cerr << "ERROR Trying to load: assets/Ubuntu-Title.ttf\n";
 	else font->loadFromFile("assets/Ubuntu-Title.ttf");
 	buttonText = new sf::Text{text,*font};
-	buttonText->setPosition(position.x + 60 , position.y  + 40);
 	buttonSprite->setTexture(*texture);
-	buttonSprite->setOrigin(150.f, 64.f);
-	buttonText->setOrigin(150.f, 64.f);
+	this->size = size;
+	setSize(size.x, size.y);
+}
+
+void Button::centerText() {
+	sf::FloatRect textBounds = buttonText->getLocalBounds();
+	buttonText->setOrigin(textBounds.left + textBounds.width / 2.f, textBounds.top + textBounds.height / 2.f);
+	buttonText->setPosition(buttonSprite->getPosition());
 }
 
 void Button::draw(sf::RenderWindow& window) {
@@ -47,10 +53,10 @@ void Button::draw(sf::RenderWindow& window) {
 
 bool Button::isMouseInsideButton(sf::Vector2i& mousePos) {
 	buttonSound.play();
-	float left = buttonSprite->getPosition().x - 150.f;
-	float top = buttonSprite->getPosition().y - 64.f;
-	float right = buttonSprite->getPosition().x + texture->getSize().x - 150.f;
-	float bottom = buttonSprite->getPosition().y + texture->getSize().y - 64.f;
+	float left = buttonSprite->getPosition().x - size.x / 2.f;
+	float top = buttonSprite->getPosition().y - size.y / 2.f;
+	float right = buttonSprite->getPosition().x + size.x / 2.f;
+	float bottom = buttonSprite->getPosition().y + size.y / 2.f;
 	return (mousePos.x >= left && mousePos.x < right && mousePos.y >= top && mousePos.y < bottom);
 }
 
@@ -68,9 +74,17 @@ void Button::setTextureIndicator(sf::Vector2i& mousePos) {
 void Button::setPosition(int xPos, int yPos){
 	position = (sf::Vector2f(static_cast<float>(xPos), static_cast<float>(yPos)));
 	buttonSprite->setPosition(position);
-	buttonText->setPosition(position.x + 60, position.y + 40);
+	centerText();
 }
 
 void Button::setText(std::string text) {
 	buttonText->setString(text);
+	centerText(); 
+}
+
+void Button::setSize(int width, int height) {
+	size = sf::Vector2i(width, height);
+	buttonSprite->setOrigin(texture->getSize().x / 2.f, texture->getSize().y / 2.f);
+	buttonSprite->setScale(static_cast<float>(width) / texture->getSize().x, static_cast<float>(height) / texture->getSize().y);	
+	centerText();
 }
