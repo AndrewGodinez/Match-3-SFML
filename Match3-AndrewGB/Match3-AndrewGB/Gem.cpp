@@ -75,6 +75,12 @@ GemType Gem::getType(){
 	return type;
 }
 
+void Gem::setOpacity(float alpha) {
+	sf::Color color = sprite.getColor();
+	color.a = static_cast<sf::Uint8>(alpha);
+	sprite.setColor(color);
+}
+
 CommonGem::CommonGem() {
 }
 
@@ -140,7 +146,26 @@ BombGem::BombGem() {
 }
 
 BombGem::BombGem(int xPos, int yPos, sf::Vector2f gridOffset) {
+	gridPosition = sf::Vector2f(xPos, yPos);
+	spritePosition(gridOffset);
+	setType(GemType::BOMB);
+	setTexture();
 }
 
 void BombGem::setTexture() {
+	std::string texturePath = configManager.getTexturePath(GemType::BOMB);
+	try {
+		if (!texture.loadFromFile(texturePath))
+			{
+			throw - 1;
+		}
+	}
+	catch (int e) {
+		if (e == -1) {
+			std::cerr << "Fallo al cargar textura de gema comun.\n" << "Programa Terminado\n";
+			exit(e);
+		}
+	}
+	texture.loadFromFile(texturePath);
+	sprite.setTexture(texture);
 }

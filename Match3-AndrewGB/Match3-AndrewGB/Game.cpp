@@ -215,16 +215,18 @@ void Game::mainGameView() {
 				}
 			}
 			else {
-				if (lastScore >= levelScoreRequirement) {
-					if (lastScore > highScore) {
-						highScore = lastScore;
-						scoreFile.setFileName("level" + std::to_string(selectedLevel) + "HS.ini");
-						scoreFile.openOut();
-						scoreFile.replaceContent(std::to_string(highScore));
+				if (!gameBoard->isAnimatingOrResolving()) {
+					if (lastScore >= levelScoreRequirement) {
+						if (lastScore > highScore) {
+							highScore = lastScore;
+							scoreFile.setFileName("level" + std::to_string(selectedLevel) + "HS.ini");
+							scoreFile.openOut();
+							scoreFile.replaceContent(std::to_string(highScore));
+						}
+						view = GAME_WIN;
+					} else {
+						view = GAME_OVER;
 					}
-					view = GAME_WIN;
-				} else {
-					view = GAME_OVER;
 				}
 			}
 		}

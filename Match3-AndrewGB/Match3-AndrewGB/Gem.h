@@ -15,10 +15,10 @@ protected:
 	sf::Vector2f gridPosition;
 	bool moving = false;
 	sf::Vector2f targetPixelPos;
-	float moveSpeed = 900.f;
+	float moveSpeed = 500.f; 
 public:
 	Gem();
-	~Gem();
+	virtual ~Gem();
 	void update(float deltaTime);
 	void spritePosition(sf::Vector2f gridOffset);
 	void updatePosition(int xPos, int yPos, sf::Vector2f gridOffset);
@@ -27,6 +27,7 @@ public:
 	void draw(sf::RenderWindow &window);
 	void setType(GemType type);
 	void setGridPosition(sf::Vector2f position);
+	void setOpacity(float alpha); 
 	GemType getType();
 	virtual GemColor getColor() = 0;
 	bool isMoving() const { return moving; }
@@ -47,6 +48,7 @@ public:
 	BombGem();
 	BombGem(int xPos, int yPos, sf::Vector2f gridOffset);
 	void setTexture() override;
+	GemColor getColor() override { return GemColor::COUNT; }
 };
 
 class ObstacleGem : public Gem {

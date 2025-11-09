@@ -1,4 +1,6 @@
 #include "Board.h"
+#include "Gem.h"
+
 
 Board::Board() {
 	srand(static_cast<unsigned>(time(nullptr)));
@@ -13,7 +15,10 @@ Board::Board() {
 	selectionRect->setOutlineColor(sf::Color(255, 255, 255, 100));
 	gridShape->setFillColor(sf::Color(0, 0, 0, 100));
 	for (int i = 0; i < GRID_HEIGHT; i++) {
-		for (int j = 0; j < GRID_WIDTH; j++) toDeleteOnGrid[i][j] = false;
+		for (int j = 0; j < GRID_WIDTH; j++) {
+			toDeleteOnGrid[i][j] = false;
+			fourInMatch[i][j] = false;
+		}
 	}
 	loadLevel(2);
 	inicializateBoard();
@@ -32,7 +37,10 @@ Board::Board(int level) {
 	selectionRect->setOutlineColor(sf::Color(255, 255, 255, 100));
 	gridShape->setFillColor(sf::Color(0, 0, 0, 100));
 	for (int i = 0; i < GRID_HEIGHT; i++) {
-		for (int j = 0; j < GRID_WIDTH; j++) toDeleteOnGrid[i][j] = false;
+		for (int j = 0; j < GRID_WIDTH; j++) {
+			toDeleteOnGrid[i][j] = false;
+			fourInMatch[i][j] = false;
+		}
 	}
 	loadLevel(level);
 	inicializateBoard();
@@ -65,7 +73,9 @@ void Board::update(float deltaTime) {
 		bool wasFound = true;
 		while (wasFound) {
 			bool found = false;
-			checkMatches();
+			if (pendingDestroyDelay <= 0.0f) {
+				checkMatches();
+			}
 			for (int i = 0; i < GRID_HEIGHT && !found; i++) {
 				for (int j = 0; j < GRID_WIDTH && !found; j++) {
 					if (toDeleteOnGrid[i][j]) found = true;
@@ -75,7 +85,21 @@ void Board::update(float deltaTime) {
 				wasFound = false;
 				break;
 			}
+			if (pendingDestroyDelay > 0.0f) {
+				pendingDestroyDelay -= deltaTime;
+				if (pendingDestroyDelay > 0.0f) {
+					return;
+				}
+			}
 			destroyMatches();
+			if (pendingBomb) {
+				if (pendingBombY >= 0 && pendingBombY < GRID_HEIGHT && pendingBombX >= 0 && pendingBombX < GRID_WIDTH) {
+					delete grid[pendingBombY][pendingBombX];
+					grid[pendingBombY][pendingBombX] = new BombGem(pendingBombX, pendingBombY, gridShape->getPosition());
+				}
+				pendingBomb = false;
+				pendingBombX = pendingBombY = -1;
+			}
 			applyGravity();
 			refillBoard();
 			anyMoving = false;
@@ -90,8 +114,6 @@ void Board::update(float deltaTime) {
 			}
 		}
 		if (!animating) pendingResolve = false;
-
-		// Si terminamos de resolver y no hay movimientos posibles, remezclar gemas comunes
 		if (!animating && !pendingResolve) {
 			if (!hasAnyPossibleMove()) {
 				reshuffleGems();
@@ -142,15 +164,39 @@ void Board::createCommonGem(int j, int i) {
 
 void Board::checkMatches() {
 	resetDeletedGem();
+	if (pendingExpl) {
+		if (pendingExplY >= 0 && pendingExplY < GRID_HEIGHT && pendingExplX >= 0 && pendingExplX < GRID_WIDTH) {
+			// mark row
+			for (int c = 0; c < GRID_WIDTH; ++c) {
+				Gem* g = grid[pendingExplY][c];
+				if (g && g->getType() != GemType::OBSTACLE) {
+					toDeleteOnGrid[pendingExplY][c] = true;
+				}
+			}
+			for (int r = 0; r < GRID_HEIGHT; ++r) {
+				Gem* g = grid[r][pendingExplX];
+				if (g && g->getType() != GemType::OBSTACLE) {
+					toDeleteOnGrid[r][pendingExplX] = true;
+				}
+			}
+		}
+			pendingDestroyDelay = 0.45f; 
+			pendingExpl = false;
+			pendingExplX = pendingExplY = -1;
+	}
 	for (int i = 0; i < GRID_HEIGHT; i++) {
 		int count = 1;
 		for (int j = 0; j < GRID_WIDTH - 1; j++) {
 			if (grid[i][j]->getColor() == grid[i][j + 1]->getColor()) {
 				count++;
 				if (count >= 3 && (j + 1 == GRID_WIDTH - 1 || grid[i][j + 1]->getColor() != grid[i][j + 2]->getColor())) {
-					for (int k = j + 1 - count + 1; k <= j + 1; k++) {
-						toDeleteOnGrid[i][k] = true;
-					}
+					int start = j + 1 - count + 1;
+					int end = j + 1;
+							for (int k = start; k <= end; k++) {
+								if (pendingBomb && pendingBombX == k && pendingBombY == i) continue;
+								toDeleteOnGrid[i][k] = true;
+								if (count >= 4) fourInMatch[i][k] = true;
+							}
 					count = 1;
 				}
 			} else {
@@ -164,11 +210,15 @@ void Board::checkMatches() {
 			if (grid[j][i]->getColor() == grid[j + 1][i]->getColor()) {
 				count++;
 				if (count >= 3 && (j + 1 == GRID_HEIGHT - 1 || grid[j + 1][i]->getColor() != grid[j + 2][i]->getColor())) {
-					for (int k = j + 1 - count + 1; k <= j + 1; k++) {
+					int start = j + 1 - count + 1;
+					int end = j + 1;
+					for (int k = start; k <= end; k++) {
+						if (pendingBomb && pendingBombX == i && pendingBombY == k) continue;
 						toDeleteOnGrid[k][i] = true;
+						if (count >= 4) fourInMatch[k][i] = true;
 					}
 					count = 1;
-				} 
+				}
 			} else {
 				count = 1;
 			}
@@ -182,8 +232,13 @@ void Board::destroyMatches() {
 			if (toDeleteOnGrid[i][j]) {
 				delete grid[i][j];
 				grid[i][j] = nullptr;
+					if (fourInMatch[i][j]) {
+						score += 20; 
+						fourInMatch[i][j] = false;
+					} else {
+						score += 10;
+					}
 				toDeleteOnGrid[i][j] = false;
-				score += 10;
 			}
 		}
 	}
@@ -193,6 +248,7 @@ void Board::resetDeletedGem() {
 	for (int i = 0; i < GRID_HEIGHT; i++) {
 		for (int j = 0; j < GRID_WIDTH; j++) {
 			toDeleteOnGrid[i][j] = false;
+			fourInMatch[i][j] = false;
 		}
 	}
 }
@@ -291,6 +347,31 @@ void Board::handleClick(const sf::Vector2i& mousePos) {
 		return;
 	}
 	if (animating) return;
+	
+	if (grid[y][x] && grid[y][x]->getType() == GemType::BOMB) {
+		int bombX = x;
+		int bombY = y;
+		for (int c = 0; c < GRID_WIDTH; ++c) {
+			Gem* g = grid[bombY][c];
+			if (g && g->getType() != GemType::OBSTACLE) {
+				toDeleteOnGrid[bombY][c] = true;
+				g->setOpacity(100.0f); 
+			}
+		}
+		for (int r = 0; r < GRID_HEIGHT; ++r) {
+			Gem* g = grid[r][bombX];
+			if (g && g->getType() != GemType::OBSTACLE) {
+				toDeleteOnGrid[r][bombX] = true;
+				g->setOpacity(100.0f); 
+			}
+		}
+		pendingDestroyDelay = 0.6f; 
+		pendingResolve = true;
+		movesLeft -= 1;
+		selectedY = -1;
+		selectedX = -1;
+		return;
+	}
 	if (selectedY == -1 && selectedX == -1) {
 		selectedY = y;
 		selectedX = x;
@@ -315,13 +396,24 @@ void Board::handleClick(const sf::Vector2i& mousePos) {
 		return;
 	}
 	swapGemsPosition(selectedX, selectedY, x, y);
-	animating = true;
-	pendingResolve = true;
-	bool match1 = checkMatchAtPosition(selectedX, selectedY);
-	bool match2 = checkMatchAtPosition(x,y);
+	int run1 = getMaxRunLengthAtPosition(selectedX, selectedY);
+	int run2 = getMaxRunLengthAtPosition(x, y);
+	bool match1 = (run1 >= 3);
+	bool match2 = (run2 >= 3);
 	if (!(match1 || match2)) {
 		swapGemsPosition(selectedX, selectedY, x, y);
 	} else {
+		if (run2 >= 4) {
+			pendingBomb = true;
+			pendingBombX = x;
+			pendingBombY = y;
+		} else if (run1 >= 4) {
+			pendingBomb = true;
+			pendingBombX = selectedX;
+			pendingBombY = selectedY;
+		}
+		animating = true;
+		pendingResolve = true;
 		movesLeft -= 1;
 	}
 	selectedY = -1;
@@ -374,6 +466,29 @@ bool Board::hasAnyPossibleMove() {
 		}
 	}
 	return false;
+}
+
+int Board::getMaxRunLengthAtPosition(int x, int y) {
+	if (y < 0 || y >= GRID_HEIGHT || x < 0 || x >= GRID_WIDTH) return 0;
+	Gem* center = grid[y][x];
+	if (!center) return 0;
+	GemColor centerType = center->getColor();
+	// horizontal
+	int countH = 1;
+	for (int i = x - 1; i >= 0; --i) {
+		if (grid[y][i] && grid[y][i]->getColor() == centerType) countH++; else break;
+	}
+	for (int i = x + 1; i < GRID_WIDTH; ++i) {
+		if (grid[y][i] && grid[y][i]->getColor() == centerType) countH++; else break;
+	}
+	int countV = 1;
+	for (int i = y - 1; i >= 0; --i) {
+		if (grid[i][x] && grid[i][x]->getColor() == centerType) countV++; else break;
+	}
+	for (int i = y + 1; i < GRID_HEIGHT; ++i) {
+		if (grid[i][x] && grid[i][x]->getColor() == centerType) countV++; else break;
+	}
+	return (countH > countV) ? countH : countV;
 }
 
 void Board::reshuffleGems() {
