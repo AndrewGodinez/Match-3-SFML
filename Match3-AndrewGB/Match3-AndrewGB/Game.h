@@ -1,6 +1,8 @@
 #pragma once
 #include "Board.h"
 #include "Button.h"
+#include "HighScoresHandler.h"
+#include "InputBox.h"
 
 enum GameState {
 	MAIN_MENU,
@@ -17,7 +19,8 @@ private:
 	int selectedLevel;
 	int beatedLevels;
 	XmlFile scoreFile;
-	XmlFile saveFile;
+	TxtFile saveFile;
+	HighScoresHandler highScoresHandler;
 	int highScore;
 	int lastScore;
 	GameState view;
@@ -28,6 +31,10 @@ private:
 	sf::Clock clock;
 	sf::Image icon;
 	int levelScoreRequirement;
+	InputBox* nameInputBox;
+	bool waitingForName;
+	std::string playerName;
+	int highScoreViewLevel;
 public:
 	Game();
 	~Game();

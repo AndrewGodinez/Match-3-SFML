@@ -6,12 +6,12 @@ Button::Button() {
 	buttonSound.setBuffer(buttonBuffer);
 	buttonSprite = new sf::Sprite();
 	texture = new sf::Texture();
-	if (!texture->loadFromFile("assets/button.png")) std::cerr << "ERROR Trying to load: assets/button.png\n";
+	if (!texture->loadFromFile("assets/button.png")) std::cerr << "ERROR: Failed to load button texture: assets/button.png\n";
 	else texture->loadFromFile("assets/button.png");
 	position = (sf::Vector2f(static_cast<float>(0), static_cast<float>(0)));
 	buttonSprite->setPosition(position);
 	font = new sf::Font();
-	if (!font->loadFromFile("assets/Ubuntu-Title.ttf")) std::cerr << "ERROR Trying to load: assets/Ubuntu-Title.ttf\n";
+	if (!font->loadFromFile("assets/Ubuntu-Title.ttf")) std::cerr << "ERROR: Failed to load font file: assets/Ubuntu-Title.ttf\n";
 	else font->loadFromFile("assets/Ubuntu-Title.ttf");
 	buttonText = new sf::Text{"Lorem Ipsum",*font };
 	buttonText->setPosition(position.x + 16, position.y + 16);
@@ -27,12 +27,12 @@ Button::~Button() {
 Button::Button(int xPos, int yPos, std::string text, sf::Vector2i size) {
 	buttonSprite = new sf::Sprite();
 	texture = new sf::Texture();
-	if (!texture->loadFromFile("assets/button.new.png")) std::cerr << "ERROR Trying to load: assets/button.png\n";
+	if (!texture->loadFromFile("assets/button.new.png")) std::cerr << "ERROR: Failed to load button texture: assets/button.new.png\n";
 	else texture->loadFromFile("assets/button.new.png");
 	position = (sf::Vector2f(static_cast<float>(xPos), static_cast<float>(yPos)));
 	buttonSprite->setPosition(position);
 	font = new sf::Font();
-	if (!font->loadFromFile("assets/Ubuntu-Title.ttf")) std::cerr << "ERROR Trying to load: assets/Ubuntu-Title.ttf\n";
+	if (!font->loadFromFile("assets/Ubuntu-Title.ttf")) std::cerr << "ERROR: Failed to load font file: assets/Ubuntu-Title.ttf\n";
 	else font->loadFromFile("assets/Ubuntu-Title.ttf");
 	buttonText = new sf::Text{text,*font};
 	buttonSprite->setTexture(*texture);

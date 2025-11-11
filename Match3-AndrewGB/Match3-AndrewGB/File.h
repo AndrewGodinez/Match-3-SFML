@@ -18,7 +18,15 @@ public:
 class XmlFile : public File {
 public:
 	XmlFile();
+	void createFileWithRoot(const std::string& rootTag);
 	std::string getTag(const std::string& tag);
+	std::string getTagAt(const std::string& tag, int index);
+	void addTag(const std::string& tag, const std::string& content);
+	void addEntry(const std::string& entryTag, const std::string& tag1, const std::string& content1, const std::string& tag2, const std::string& content2);
+	void replaceTag(const std::string& tag, const std::string& newContent);
+	int countTags(const std::string& tag);
+	void removeTag(const std::string& tag);
+	void clearAllTags();
 };
 
 class CsvFile : public File {
