@@ -47,12 +47,12 @@ Choose the play option and select a level, you must beat certain levels to get a
 
 When playing you select two gems that are next to each other. If you have 3 gems in a line, it's a match-3, and you score. You have a goal to achieve in order to beat the level and unlock the next level. You have a limited amount of movements to beat this goal.
 
-![Main Game](Misc/s2.png)
+![Main Game](misc/s2.png)
 
 If your match lines are made from 4 or more gems, you get a special gem that clears a big part of the gems on the screen, giving you a very high score.
 
-![Special Gem](sMisc/4.png)
+![Special Gem](misc/s4.png)
 
 In higher levels you will encounter blocks. These blocks are indestructible and cannot be moved.
 
-![Blocks](Misc/s5.png)
+![Blocks](misc/s5.png)
