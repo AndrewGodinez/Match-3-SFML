@@ -43,7 +43,7 @@ Download `match-3-fantasy-linux.x86_64.zip` then extract it and run the `main.x8
 
 Choose the play option and select a level, you must beat certain levels to get access to the other levels
 
-![Main Screen](Misc/s1.png)
+![Main Screen](misc/s1.png)
 
 When playing you select two gems that are next to each other. If you have 3 gems in a line, it's a match-3, and you score. You have a goal to achieve in order to beat the level and unlock the next level. You have a limited amount of movements to beat this goal.
 
